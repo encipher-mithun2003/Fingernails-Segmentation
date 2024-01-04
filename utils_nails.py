@@ -110,10 +110,10 @@ class fingernailseg:
         u9 = Concatenate(axis=3)([u9, c1])
         c9 = Conv2D(8, 3, activation='relu', padding='same') (u9)
         c9 = Conv2D(8, 3, activation='relu', padding='same') (c9)
-        outputs = Conv2D(1, 1, activation='sigmoid') (c9)
+        outputs = Conv2D(1, 1, activation='sigmoid')(c9)
         self.model = Model(inputs=[s], outputs=[outputs])
 
-        self.model.compile(optimizer = Adam(), loss = 'binary_crossentropy', metrics = [mean_iou])
+        self.model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=[mean_iou], run_eagerly=True)
         
     def build_callbacks(self):
         checkpointer = ModelCheckpoint(filepath='unet.h5', verbose=0, save_best_only=True, save_weights_only=True)
